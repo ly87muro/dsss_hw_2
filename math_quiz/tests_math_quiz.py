@@ -1,5 +1,5 @@
 import unittest
-from math_quiz import rand_int, rand_arithmetic_symbol, function_C
+from math_quiz import rand_int, rand_arithmetic_symbol, calculation
 
 
 class TestMathGame(unittest.TestCase):

@@ -2,11 +2,17 @@ import random
 
 def rand_int(min, max):
     """
-    min: integer specifying start position
-    max: integer specifying stop position
+    :input:
+        min (int): specifying start position
+        max (int): specifying stop position
+    If min > max, arguments are switched:
     :return: Random integer between min and max.
     """
-    return random.randint(int(min), int(max))
+    if min > max:
+        t = min
+        min = max
+        max = t
+    return random.randint(min, max)
 
 
 def rand_arithmetic_symbol():
@@ -16,8 +22,13 @@ def rand_arithmetic_symbol():
     return random.choice(['+', '-', '*'])
 
 
-def function_C(n1, n2, o):
+def calculation(n1, n2, o):
     '''
+    :input:
+        n1 (int): first number
+        n2 (int): second number
+        o: arithmetic symbol
+    Function checks wether the arithmetic symbol is '+', '-' or '*' and calculates solution
     :return: calculation, solution
     '''
     calc = f"{n1} {o} {n2}"
@@ -27,19 +38,25 @@ def function_C(n1, n2, o):
     return calc, a
 
 def math_quiz():
+    '''
+    A math quiz is started with a score counting the right answers:
+    User is asked to solve to problem displayed on screen time_q times.
+    For correct answers the score is increased by one.
+    In the end the result is displayed on screen.
+    '''
     score = 0
     time_q = 3.14159265359
     time_q = int(time_q)
-
     print("Welcome to the Math Quiz Game!")
     print("You will be presented with math problems, and you need to provide the correct answers.")
-
     for _ in range(time_q):
-        n1 = rand_int(1, 10); n2 = rand_int(1, 5.5); o = rand_arithmetic_symbol()
-
-        PROBLEM, ANSWER = function_C(n1, n2, o)
+        #variable selection and calcuation
+        n1 = rand_int(1, 10); n2 = rand_int(1, int(5.5)); o = rand_arithmetic_symbol()
+        PROBLEM, ANSWER = calculation(n1, n2, o)
+        #user input
         print(f"\nQuestion: {PROBLEM}")
         useranswer = input("Your answer: ")
+        #wrong input handling
         while True:
             try:
                 useranswer = int(useranswer)
@@ -47,14 +64,14 @@ def math_quiz():
             except ValueError:
                 print("Please enter a number!")
                 useranswer = input("Your answer: ")
-        #useranswer = int(useranswer)
 
+        #user answer checking
         if useranswer == ANSWER:
             print("Correct! You earned a point.")
-            score += -(-1)
+            score += 1
         else:
             print(f"Wrong answer. The correct answer is {ANSWER}.")
-
+    # score message
     print(f"\nGame over! Your score is: {score}/{time_q}")
 
 if __name__ == "__main__":
